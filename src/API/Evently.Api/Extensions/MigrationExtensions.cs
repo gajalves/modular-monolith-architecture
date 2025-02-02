@@ -3,16 +3,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Evently.Api.Extensions;
 
-internal static class MigrationsExtensions
+internal static class MigrationExtensions
 {
     internal static void ApplyMigrations(this IApplicationBuilder app)
     {
         using IServiceScope scope = app.ApplicationServices.CreateScope();
 
-        ApplyMigrations<EventsDbContext>(scope);
+        ApplyMigration<EventsDbContext>(scope);
     }
 
-    private static void ApplyMigrations<TDbContext>(IServiceScope scope) where TDbContext : DbContext
+    private static void ApplyMigration<TDbContext>(IServiceScope scope)
+        where TDbContext : DbContext
     {
         using TDbContext context = scope.ServiceProvider.GetRequiredService<TDbContext>();
 
